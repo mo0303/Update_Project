@@ -4,8 +4,30 @@
  $u_id = isset($_GET['u_id']);
  $query = mysqli_query($db,"SELECT * FROM vm_info WHERE vm_id = '$bu'");
  $vm_name = mysqli_fetch_array($query);
-$product = 0;
+ $product = 0;
+ $sensor1 = exec("python /var/www/html/sensor1.py");
+ echo $sensor1;
+ $sensor2 = exec("python /var/www/html/sensor2.py");
+ echo $sensor2;
+ #$data = array(
+ # 'message' => 'magnetic_open'
+#);
+
+// URL of the Flask server
+#$url = 'http://localhost:5000/receive';
+
+// Initialize cURL
+#$curl = curl_init($url);
+
+// Set cURL options
+#curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+#curl_setopt($curl, CURLOPT_POST, true);
+#curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+// Send the request and store the response
+#$response = curl_exec($curl);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,51 +117,53 @@ $product = 0;
    
   <div class="container">
       <div class="product">
-        
-        <?php 
-        $sql = mysqli_query($db,"SELECT * FROM vm_info WHERE vm_id ='$bu'");
-        $vm =mysqli_fetch_array($sql);
-        $query = mysqli_query($db,"SELECT * FROM product");
-        
-        while($result = mysqli_fetch_array($query)){
-        ?>
-        <?php 
-        $product++;
-        
-         if($product == 1){
-          $p = $vm['product1'];
-         }else if($product == 2){
-          $p = $vm['product2'];
-         }else if ($product == 3){
-          $p = $vm['product3'];
-         }
-         if($p !='0'){
-        ?>
-        <div class="product-item" >
-            <?php if($u_id == ''){
-            ?>
-            <a class="product-item-link" href="/pay.php?bu=<?=$bu?>&id=<?=$result['p_id'] ?>">
-            <?php } else if($u_id != ''){?>
-              <a class="product-item-link" href="/pay.php?bu=<?=$bu?>&id=<?=$result['p_id']?>&u_id=<?=$u_id?>">
-              <?php }?>
-              <img class="product-img" src="<?=$result['img']?>" >
-              <p class="product-font1"><?=$result['name']?></p>
-              <p class="product-font2"><?=$result['p_price']?>฿</p>
-            </a>
-        </div>
+	<?php
+      $sql = mysqli_query($db, "SELECT * FROM vm_info WHERE vm_id ='$bu'");
+      $vm = mysqli_fetch_array($sql);
+      $query = mysqli_query($db, "SELECT * FROM product");
 
-        <?php }else if($p == '0'){ ?>
-          <div class="product-item" >
+      while ($result = mysqli_fetch_array($query)) {
+      ?>
+        <?php
+        $product++;
+
+        if ($product == 1) {
+          $p = $vm['product1'];
+          $sensor = $sensor1;
+        } else if ($product == 2) {
+          $p = $vm['product2'];
+          $sensor = $sensor2;
+        } else if ($product == 3) {
+          $p = $vm['product3'];
+          $sensor = $sensor3;
+        }
+        if ($p != '' && $sensor != 1) {
+        ?>
+          <div class="product-item">
+            <?php if ($u_id == '') {
+            ?>
+              <a class="product-item-link" href="/pay.php?bu=<?= $bu ?>&id=<?= $result['p_id'] ?>">
+              <?php } else if ($u_id != '') { ?>
+                <a class="product-item-link" href="/pay.php?bu=<?= $bu ?>&id=<?= $result['p_id'] ?>&u_id=<?= $u_id ?>">
+                <?php } ?>
+                <img class="product-img" src="<?= $result['img'] ?>">
+                <p class="product-font1"><?= $result['name'] ?></p>
+                <p class="product-font2"><?= $result['p_price'] ?>฿</p>
+                </a>
+          </div>
+
+        <?php } else if ($p != '' && $sensor != 0) { ?>
+          <div class="product-item">
             <a class="product-item-link">
-              <img class="product-img" src="<?=$result['img']?>" >
-              <p class="product-font1"><?=$result['name']?></p>
+              <img class="product-img" src="<?= $result['img'] ?>">
+              <p class="product-font1"><?= $result['name'] ?></p>
               <p class="product-font2">สินค้าหมด</p>
             </a>
-        </div>
-        <?php
+          </div>
+      <?php
 
-        }}?>
-
+        }
+      } ?> 
       </div>
   </div>
 
