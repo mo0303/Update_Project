@@ -39,7 +39,7 @@ while(running):
             p1.write("p5", "HIGH")
             p1.set_i2cBus(1)
             p1.get_i2cBus()
-            time.sleep(10)
+            #time.sleep(10)
             # เมื่อ distance_sensor.get_state() == True จะสั่งให้ มีสภานะเป็น HIGH
 
         else:
