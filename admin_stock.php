@@ -116,7 +116,7 @@ if (isset($_POST['open_door'])) {
         </div>
 
         <div class="nav-door">
-
+        <form action='' medthod = 'POST'>
           <p class="text-door">สถานะประตูตู้จำหน่ายสินค้า</p>
 
           <div class="door-status">
@@ -130,7 +130,8 @@ if (isset($_POST['open_door'])) {
             </div>
           </div>
         </div>
-
+          
+      </form>
         <div class="nav-button-addstock01">
           <div class="button-login">
             <div class="button-login-bg2">
