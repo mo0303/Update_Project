@@ -4,24 +4,25 @@ $bu = $_GET['bu'];
 $product = 0;
 
 if (isset($_POST['open-door'])) {
-    $data = array(
-        'message' => 'open'
-    );
+        // Data to send
+        $data = array(
+            'message' => $_POST['open']
+        );
 
-    // URL of the Flask server
-    $url = 'http://localhost:5000/receive';
+        // URL of the Flask server
+        $url = 'http://localhost:5000/receive';
 
-    // Initialize cURL
-    $curl = curl_init($url);
+        // Initialize cURL
+        $curl = curl_init($url);
 
-    // Set cURL options
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        // Set cURL options
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-    // Send the request and store the response
-    $response = curl_exec($curl);
-}
+        // Send the request and store the response
+        $response = curl_exec($curl);
+	}
 
 ?>
 <!DOCTYPE html>
