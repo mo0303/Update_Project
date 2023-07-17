@@ -2,29 +2,6 @@
 include_once('dbConfig.php');
 $bu = $_GET['bu'];
 $product = 0;
-
-if (isset($_POST['coin'])) {
-        // Data to send
-        $data = array(
-            'message' => $_POST['coin']
-        );
-
-        // URL of the Flask server
-        $url = 'http://localhost:5000/receive';
-
-        // Initialize cURL
-        $curl = curl_init($url);
-
-        // Set cURL options
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-
-        // Send the request and store the response
-        $response = curl_exec($curl);
-	curl_close($curl);
-	}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,10 +104,10 @@ if (isset($_POST['coin'])) {
               <h4 style="color: #55a630;">ประตูเปิดอยู่</h4>
             </div>
             <form method="post" action="">
-	<input type="hidden" name="message" value="coin">
+	<input type="hidden" name="message" value="open">
             <div class="button-open">
-              #<button class="button" name="open-door" type="submit">เปิดประตู</button>
-		<button type="submit" name="coin">coin</button>
+              
+		<button type="submit" name="coin">เปิดประตู</button>
             </div>
             </form>
           </div>
