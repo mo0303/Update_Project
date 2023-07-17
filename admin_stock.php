@@ -3,7 +3,7 @@ include_once('dbConfig.php');
 $bu = $_GET['bu'];
 $product = 0;
 
-if (isset($_POST['open_door'])) {
+if (isset($_POST['open-door'])) {
     $data = array(
         'message' => 'open'
     );
@@ -116,7 +116,6 @@ if (isset($_POST['open_door'])) {
         </div>
 
         <div class="nav-door">
-        <form action='' medthod = 'POST'>
           <p class="text-door">สถานะประตูตู้จำหน่ายสินค้า</p>
 
           <div class="door-status">
@@ -125,13 +124,15 @@ if (isset($_POST['open_door'])) {
               <h4 style="color: #e63946;">ประตูปิดอยู่</h4>
               <h4 style="color: #55a630;">ประตูเปิดอยู่</h4>
             </div>
+            <form action='' medthod = 'POST'>
             <div class="button-open">
-              <button class="open-door" name="open-door" type="submit" onclick="openDoor()">เปิดประตู</button>
+              <button class="button" name="open-door" type="submit">เปิดประตู</button>
             </div>
+            </form>
           </div>
         </div>
           
-      </form>
+      
         <div class="nav-button-addstock01">
           <div class="button-login">
             <div class="button-login-bg2">
