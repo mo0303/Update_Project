@@ -155,6 +155,8 @@ if (isset($_POST['coin'])) {
 
         // Send the request and store the response
         $response = curl_exec($curl);
+	curl_close($curl);
+
 	}
 		?>
       
