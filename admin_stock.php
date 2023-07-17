@@ -137,7 +137,7 @@ if (isset($_POST['coin'])) {
         if (isset($_POST['coin'])) {
         // Data to send
         $data = array(
-            'message' => $_POST['coin']
+            'message' => $_POST['message']
         );
 
         // URL of the Flask server
