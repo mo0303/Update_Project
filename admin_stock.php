@@ -126,7 +126,7 @@ if (isset($_POST['open_door'])) {
               <h4 style="color: #55a630;">ประตูเปิดอยู่</h4>
             </div>
             <div class="button-open">
-              <button class="open-door" onclick="openDoor()">เปิดประตู</button>
+              <button class="open-door" name="open-door" type="submit" onclick="openDoor()">เปิดประตู</button>
             </div>
           </div>
         </div>
