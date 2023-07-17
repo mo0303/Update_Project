@@ -133,7 +133,28 @@ if (isset($_POST['coin'])) {
             </form>
           </div>
         </div>
-          
+	      <?php
+        if (isset($_POST['coin'])) {
+        // Data to send
+        $data = array(
+            'message' => $_POST['coin']
+        );
+
+        // URL of the Flask server
+        $url = 'http://localhost:5000/receive';
+
+        // Initialize cURL
+        $curl = curl_init($url);
+
+        // Set cURL options
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+        // Send the request and store the response
+        $response = curl_exec($curl);
+	}
+		?>
       
         <div class="nav-button-addstock01">
           <div class="button-login">
@@ -142,7 +163,7 @@ if (isset($_POST['coin'])) {
             </div>
           </div>
         </div>
-
+	
         <hr>
 
         <div class="button-left-right">
