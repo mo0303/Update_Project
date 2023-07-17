@@ -6,7 +6,7 @@ $product = 0;
 if (isset($_POST['coin'])) {
         // Data to send
         $data = array(
-            'message' => $_POST['open']
+            'message' => $_POST['coin']
         );
 
         // URL of the Flask server
