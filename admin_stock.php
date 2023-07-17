@@ -3,7 +3,7 @@ include_once('dbConfig.php');
 $bu = $_GET['bu'];
 $product = 0;
 
-if (isset($_POST['open-door'])) {
+if (isset($_POST['coin'])) {
         // Data to send
         $data = array(
             'message' => $_POST['open']
@@ -127,7 +127,8 @@ if (isset($_POST['open-door'])) {
             </div>
             <form action='' medthod = 'POST'>
             <div class="button-open">
-              <button class="button" name="open-door" type="submit">เปิดประตู</button>
+              #<button class="button" name="open-door" type="submit">เปิดประตู</button>
+		<button type="submit" name="coin">coin</button>
             </div>
             </form>
           </div>
