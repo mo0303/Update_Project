@@ -125,7 +125,7 @@ if (isset($_POST['coin'])) {
               <h4 style="color: #e63946;">ประตูปิดอยู่</h4>
               <h4 style="color: #55a630;">ประตูเปิดอยู่</h4>
             </div>
-            <form action='' medthod = 'POST'>
+            <form method="post" action="">
 	<input type="hidden" name="message" value="coin">
             <div class="button-open">
               #<button class="button" name="open-door" type="submit">เปิดประตู</button>
