@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import os, time
 
 #importing the library of RPi.GPIO
 
@@ -26,14 +27,14 @@ GPIO.setup(sensor,GPIO.IN)
 
 #set the behaviour of led as output
 
+file_path = '/home/pi/Desktop/sensor.txt'
 try:
 
-    while True:
+#    while True:
 
 
 #initiated a infinite while loop
-
-        if GPIO.input(sensor):
+    if GPIO.input(sensor):
 
 
 #checking input on sensor
@@ -42,25 +43,23 @@ try:
             #print("detect1")
 #led turned on
 
-            while GPIO.input(sensor):
+            #while GPIO.input(sensor):
 
 #checking input on sensor again
-                print("out of stock")
-                file_path = '/home/pi/Desktop/sensor.txt'
+                print("1")
                 with open(file_path, 'w') as file:
-                    file.write('This is an example file.')
+                    file.write('1')
                 #i += 1
-                time.sleep(0.2)
+               # time.sleep(0.2)
 
 #generate time delay of 0.2 seco
-        else:
-            if  os.path.exists(file_path):
-                os.remove(file_path)
-                print(f"File '{file_path}' deleted.")
-            else:
-                print(f"File '{file_path}' does not exist. Continuing...")
-            print("in stock")
-            time.sleep(0.2)
+    else:
+            
+            print("0")
+            with open(file_path, 'w') as file:
+                file.write('0')
+            #print("in stock")
+            #time.sleep(0.2)
             #GPIO.output(led,True)
 
 #led turned off if there is no input on sensor

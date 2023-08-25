@@ -1,127 +1,158 @@
-<?php 
- include_once('dbConfig.php');
- $bu = $_GET['bu'];
- $query = mysqli_query($db,"SELECT * FROM vm_info WHERE vm_id = '$bu'");
- $vm_name = mysqli_fetch_array($query);
+<?php
+include_once('dbConfig.php');
+$bu = $_GET['bu'];
+$newu_id = isset($_GET['newu_id']);
+$query = mysqli_query($db, "SELECT * FROM vm_info WHERE vm_id = '$bu'");
+$vm_name = mysqli_fetch_array($query);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-widtp> h>, initial-scale=1.0">
-    <title>Vending Machine</title>
-    <link rel="icon" href="/pic/logo-title1.png" type="image/icon type">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=<device-widtp> h>, initial-scale=1.0">
+  <title>Vending Machine</title>
+  <link rel="icon" href="/pic/logo-title1.png" type="image/icon type">
 
-    <link href="/style.css" type="text/css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="/style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-  <body>
-    <header>
-      <div class="header-container">
-          <a class="logo-header-text"  href="/index.php">สาขา <?=$vm_name['vm_name']?></a>
-          <a href="/admin_login.php">
-              <img src="/pic/logo.png" class="logo-header-img">
-          </a>
-         <!-- <a class="logo-admin"   href="/home.php">Vending Machine</a> -->
-      </div>
-    </header>
 
-    <nav>
-        <div class="slider">
-            <figure>
-                <div class="nav-container">
-                    <img class="banner-header-img" src="/pic/bn1.png"> 
-               </div>
-
-                <div class="nav-container">
-                    <img class="banner-header-img" src="/pic/bn2.png"> 
-               </div>
-
-                <div class="nav-container">
-                    <img class="banner-header-img" src="/pic/bn3.png"> 
-               </div>
-
-               <div class="nav-container">
-                    <img class="banner-header-img" src="/pic/bn4.png"> 
-               </div>
-
-            </figure>
-        </div>
-    </nav>
-
-
-    <div class="banner-add">
-        <div class="banner-add-home">
-          <img class="banner-add-img" src="/pic/b1.png">
-        </div>
+<body>
+  <header>
+    <div class="header-container">
+      <a id="heading" class="logo-header-text" href="/index.php"><?= $vm_name['vm_name'] ?></a>
+      <a href="/admin_login.php">
+        <img src="/pic/logo.png" class="logo-header-img">
+      </a>
+      <!-- <a class="logo-admin"   href="/home.php">Vending Machine</a> -->
     </div>
-    
-    <div class="text-container">
-      <div class="text-icon-point">
-        <div class="text-icon">
-          <div class="text">
-            <p> 1.เลือกรายการสินค้า</p>
-          </div>
-  
-          <div class="icon">
-            <i class="fa-solid fa-circle-chevron-right"></i>
-          </div>
-  
-          <div class="text">
-            <p>2.เลือกวิธีชำระเงิน</p>
-          </div>
-  
-          <div class="icon">
-            <i class="fa-solid fa-circle-chevron-right"></i>
-          </div>
-  
-          <div class="text">
-            <p>3.รับสินค้า</p>
-          </div>
+  </header>
+
+  <nav>
+    <div class="slider">
+      <figure>
+
+        <?php 
+        $query = mysqli_query($db, "SELECT * FROM ad_info WHERE status = '1'");
+
+        while ($row = mysqli_fetch_array($query)) {
+            $imageURL = $row['ad_img'];
+        ?>
+
+      <div class="nav-container">
+          <img class="banner-header-img" src="<?=$imageURL?>">
         </div>
 
-        <div class="point-text">
-          <a class="logo-point"  href="/phone_points.php?bu=<?=$bu?>">คะเเนนสะสม</a>
+        <?php 
+        }
+        ?>
+      </figure>
+    </div>
+  </nav>
+
+
+  <div class="banner-add">
+    <div class="banner-add-home">
+      <img class="banner-add-img" src="/pic/b1.png">
+    </div>
+  </div>
+
+  <div class="text-container">
+    <div class="text-icon-point">
+      <div class="text-icon">
+
+
+        <div class="text">
+          <p id="heading1"></p>
         </div>
 
+
+        <div class="icon">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </div>
+
+
+        <div class="text">
+          <p id="heading2"></p>
+        </div>
+
+
+
+        <div class="icon">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </div>
+
+
+        <div class="text">
+          <p id="heading3"></p>
+        </div>
+      </div>
+
+      <div class="point-text">
+        <a id="heading_points" class="logo-point" href="/phone_points.php?bu=<?= $bu ?>"></a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-all">
+    <div class="container-all-back-closed">
+      <div class="container-all-back">
+
+      </div>
+
+      <div class="container-all-closed">
+        <a class="fa-solid fa-circle-xmark" href="index.php?bu=<?= $bu ?>" style="text-decoration: none; color: #383838;"></a>
       </div>
     </div>
 
-    <div class="container-all">
-        <div class="container-all-back-closed">
-            <div class="container-all-back">
-                
-            </div>
+    <div class="container-product-center">
 
-            <div class="container-all-closed">
-                <a class="fa-solid fa-circle-xmark" href="index.php?bu=<?=$bu?>"
-                   style="text-decoration: none; color: #383838;" ></a>
-            </div>
-        </div>
-
-        <div class="container-product-center">
-
-             <!--**********************************************************-->
-             <div class="container-product-right">
+      <!--**********************************************************-->
+      <div class="container-product-right">
         <div class="container-right-column">
 
           <div class="box-tab-right">
-            <p class="text-box">คะเเนนสะสม</p>
+            <p id="content_title_pay" class="text-box"></p>
           </div>
         </div>
 
         <form method="post">
           <div class="numPan">
 
-            <div class="numpad">
-              <p class="product-font1">ใส่เบอร์มือถือ เพื่อเช็คคะเเนนสะสม</p>
+          <div class="numpad">
+              <?php if ($newu_id == '') { ?>
+                <p id="content_title_pay1" class="product-font1">ใส่เบอร์มือถือ เพื่อเช็คคะเเนนสะสม</p>
+              <?php } else if ($newu_id != '') { ?>
+                <p id="content_title_pay2" class="product-font1">ไม่พบเบอร์มือถือ กรุณาตั้งรหัสผ่านเพื่อสมัครสมาชิก</p>
+              <?php } ?>
+
             </div>
 
             <div class="flex-disp">
-              <input type="text" name="text" class="flex-indis" required placeholder="กรอกเบอร์มือถือ">
-            </div>
+
+              <?php if ($newu_id == '') { ?>
+                <input type="text" name="text" class="flex-indis" style="visibility: none;" required placeholder="กรอกเบอร์มือถือ">
+              <input type="text" name="text2" class="flex-indis-hidd" style="position: absolute;
+    left: 0;
+    top: 0;
+    visibility: visible;
+    display: block;" required placeholder="กรอกเบอร์มือถือ">
+           
+              <?php } else if ($newu_id != '') { ?>
+                <input type="text" name="text" class="flex-indis" style="visibility: none;" required placeholder="กรอกรหัสผ่าน 6 ตัว">
+              <input type="text" name="text2" class="flex-indis-hidd" style="position: absolute;
+    left: 0;
+    top: 0;
+    visibility: visible;
+    display: block;" required placeholder="กรอกรหัสผ่าน 6 ตัว">
+           
+              <?php } ?>
+
+
             <div class="nums">
               <div class="flex r r1">
                 <div><span>1</span></div>
@@ -139,8 +170,8 @@
                 <div><span>9</span></div>
               </div>
               <div class="flex r r4">
-                <div class="button-flex-delete"><span>ลบ</span></div>
-                <div><span>0</span></div>
+                <div class="button-flex-delete">ลบ</div>
+                <div class="key" onclick="addNumber(0)"><span>0</span></div>
                 <div class="button-flex-submit"><button type="submit" name='btn-ok' class="bg-ok">ตกลง</div>
               </div>
             </div>
@@ -149,7 +180,6 @@
         </form>
 
         <style>
-
           .flex {
             display: flex;
             align-items: center;
@@ -160,7 +190,7 @@
             width: 42vw;
             padding: 10px;
             margin: 0 auto;
-            
+
           }
 
           .numPad .disp input {
@@ -172,6 +202,16 @@
           }
 
           .flex-indis {
+            width: 40vw;
+            height: 7vw;
+            font-size: 2vw;
+            text-align: center;
+            border: 2px solid #fb8500;
+            border-radius: 10px;
+            outline: none;
+          }
+
+          .flex-indis-hidd {
             width: 40vw;
             height: 7vw;
             font-size: 2vw;
@@ -208,22 +248,22 @@
           .numPan .nums>.r div:hover {
             background: #3046b1;
           }
-          
-          .numPan .nums >.r .button-flex-delete {
+
+          .numPan .nums>.r .button-flex-delete {
             background-color: #D90429;
             box-shadow: 5px 10px 20px #bf0603 inset;
           }
 
-          .numPan .nums >.r .button-flex-delete:hover {
+          .numPan .nums>.r .button-flex-delete:hover {
             background-color: #bf0603;
           }
 
-          .numPan .nums >.r .button-flex-submit {
+          .numPan .nums>.r .button-flex-submit {
             background-color: #FB8500;
             box-shadow: 5px 10px 20px #FF6200 inset;
           }
 
-          .numPan .nums >.r .button-flex-submit:hover {
+          .numPan .nums>.r .button-flex-submit:hover {
             background-color: #FF6200;
           }
 
@@ -238,70 +278,122 @@
         </style>
 
       </div>
-        <!--**********************************************************-->
-
-        </div>
+      <!--**********************************************************-->
 
     </div>
 
-    <footer>
-        <div class="footer-container">
-          <div class="footer-button-logo">
-              <div class="footer-button">
-                <p class="button-text">เลือกภาษา</p>
-                <button class="button-thai">ไทย</button>
-                <button class="button-eng">Eng</button>
-              </div>
-    
-              <div class="foorter-logo">
-                <img src="/pic/school-of-engineering.png" class="logo-university">
-              </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-button-logo">
+        <div class="footer-button">
+          <p id="index_language" class="button-text"></p>
+          <div id="myDIV">
+            <button class="buttonTHEN active" onclick="changeLanguage('th')">ไทย</button>
+            <button class="buttonTHEN" onclick="changeLanguage('en')">Eng</button>
           </div>
-          
         </div>
-      </footer>
 
+        <div class="foorter-logo">
+          <img src="/pic/school-of-engineering.png" class="logo-university">
+        </div>
+      </div>
 
-      <script>
+    </div>
+  </footer>
+
+  <script>
     var btn = document.querySelectorAll(".r > div");
     var inp = document.querySelector("input");
-  </script>
+    var inps = document.querySelector("input.flex-indis-hidd");
+</script>
 
   <?php
 
-
   if (isset($_POST['btn-ok'])) {
-    $text = $_POST['text'];
-    $phone = substr($text, 0, 10);
-    $querys = mysqli_query($db, "SELECT * FROM user WHERE phone = '$phone'");
-    $ruser = mysqli_fetch_array($querys);
-    $points = $ruser['points'];
-    $balance = $ruser['balance'];
+    if ($newu_id == '') {
+      $text = $_POST['text'];
+      $phone = substr($text, 0, 10);
+      $querys = mysqli_query($db, "SELECT * FROM user WHERE phone = '$phone'");
+      $ruser = mysqli_fetch_array($querys);
 
-    if ($phone < 9) {
+      if ($phone < 9) {
   ?><script>
-        inp.value = "Enter 10 digit";
-      </script><?php
-              } else if ($phone == $ruser['phone']) {
-                ?>
-      <script>
-        window.location.href = "points.php?bu=<?= $bu ?>&u_id=<?= $ruser['u_id'] ?>";
-      </script>
-    <?php
-              } else if ($phone != $ruser['phone']) {
-    ?><script>
-        inp.value = "เบอร์โทรศัพท์ไม่ถูกต้อง";
-      </script><?php
+          inp.value = "Enter 10 digit";
+        </script><?php
+                } else if ($phone == $ruser['phone']) {
+
+                  ?>
+        <script>
+          window.location.href = "points.php?bu=<?= $bu ?>&u_id=<?= $ruser['u_id'] ?>";
+        </script>
+      <?php
+                } else if ($phone != $ruser['phone']) {
+                  $sql = "INSERT INTO `user`(`phone`, `balance`, `points`, `roles`) VALUES ('$phone','0','0','user')";
+                  mysqli_query($db, $sql);
+                  $query = mysqli_query($db, "SELECT * FROM user WHERE phone = $phone");
+                  $result = mysqli_fetch_array($query);
+      ?>
+        <script>
+          window.location.href = "phone_points.php?bu=<?= $bu ?>&newu_id=<?= $result['u_id'] ?>";
+        </script>
+      <?php
+                }
+              } else if ($newu_id != '') {
+                $text = $_POST['text'];
+                $pin = substr($text, 0, 6);
+                $int_var = (int)filter_var($pin, FILTER_SANITIZE_NUMBER_INT);
+                $pinn = strlen($int_var);
+                $a = $_GET['newu_id'];
+                if ($pinn < 5) {
+      ?><script>
+          inp.value = "Enter 6 digit";
+        </script>
+      <?php
+                } else if ($pinn == 6) {
+                  $query = mysqli_query($db, "UPDATE user SET pin = '$int_var' WHERE u_id = '$a' ");
+      ?>
+        <script>
+          window.location.href = "points.php?bu=<?= $bu ?>&u_id=<?= $a ?>";
+        </script>
+  <?php
+                }
               }
             }
-                ?>
+  ?>
+  <?php if ($newu_id != '') { ?>
+    <script>
+       btn.forEach(val => {
+      val.addEventListener("click", () => {
+        if (inp.value.length <= 5)
+          inp.value += val.innerText;
+        
+        if (inp.value.length > 6) {
+          inp.value = "";
+          inp.value += val.innerText;
+        }
 
-  <script>
-    btn.forEach(val => {
+        if (val.innerText == "ลบ")
+          inp.value = "";
+
+        if (inp.value.length >= 0) {
+        var maskLength = inp.value.length - 0
+        var maskChar = "*".repeat(maskLength)
+        inps.value = maskChar 
+      } else {
+        inps.value = inp.value
+      }
+      })
+    }) 
+    </script>
+  <?php } else { ?>
+    <script>
+       btn.forEach(val => {
       val.addEventListener("click", () => {
         if (inp.value.length <= 9)
           inp.value += val.innerText;
-
+        
         if (inp.value.length > 10) {
           inp.value = "";
           inp.value += val.innerText;
@@ -310,11 +402,100 @@
         if (val.innerText == "ลบ")
           inp.value = "";
 
+        if (inp.value.length >= 4) {
+        var maskLength = inp.value.length - 4
+        var maskChar = "*".repeat(maskLength)
+        var last4 = inp.value.slice(-4)
+        inps.value = maskChar + last4
+      } else {
+        inps.value = inp.value
+      }
       })
-    })
-    setTimeout(function() {
-      window.location.href = "home.php?bu=<?= $bu ?>";
-    }, 60000);
-  </script>
-  </body>
+    }) 
+      setTimeout(function() {
+        window.location.href = "home.php?bu=<?= $bu ?>";
+      }, 60000);
+    </script>
+  <?php } ?>
+</body>
+
+<!-- Script สำหรับภาษา -->
+
+<script src="script.js"></script>
+<script>
+  function changeLanguage(lang) {
+
+    const heading = document.getElementById('heading');
+    const heading1 = document.getElementById('heading1');
+    const heading2 = document.getElementById('heading2');
+    const heading3 = document.getElementById('heading3');
+    const heading_points = document.getElementById('heading_points');
+
+    const content_back = document.getElementById('content_back');
+    const content_title_pay = document.getElementById('content_title_pay');
+    const content_title_pay1 = document.getElementById('content_title_pay1');
+    const content_title_pay2 = document.getElementById('content_title_pay2');
+    const content_title_pay3 = document.getElementById('content_title_pay3');
+    const content_title_pay4 = document.getElementById('content_title_pay4');
+
+    const index_language = document.getElementById('index_language');
+
+    if (lang === 'th') {
+
+      heading.innerText = 'สาขา BU123';
+      heading1.innerText = '1.เลือกรายการสินค้า';
+      heading2.innerText = '2.เลือกวิธีชำระเงิน';
+      heading3.innerText = '3.รับสินค้า';
+      heading_points.innerText = 'คะเเนนสะสม';
+
+
+      content_title_pay.innerText = 'คะเเนนสะสม';
+      content_title_pay1.innerText = 'ใส่เบอร์มือถือ เพื่อเช็คคะเเนนสะสม';
+
+
+      index_language.innerText = 'ภาษา';
+
+
+    } else if (lang === 'en') {
+
+      heading.innerText = 'Branch BU123';
+      heading1.innerText = '1.Select products';
+      heading2.innerText = '2.Choose payment';
+      heading3.innerText = '3.Pick up';
+      heading_points.innerText = 'Points';
+
+
+      content_title_pay.innerText = 'Points';
+      content_title_pay1.innerText = 'Enter mobile number to check accumulated points';
+
+
+      index_language.innerText = 'Language';
+
+    }
+
+    // บันทึกภาษาที่เลือกในคุกกี้
+    document.cookie = `lang=${lang}; path=/`;
+  }
+
+  function getLanguage() {
+    // อ่านค่าภาษาที่เลือกจากคุกกี้
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith('lang=')) {
+        return cookie.substring(5);
+      }
+    }
+    // ถ้าไม่มีคุกกี้ภาษา ให้ใช้ภาษาเริ่มต้น (ภาษาไทย)
+    return 'th';
+  }
+
+  window.addEventListener("load", function() {
+    const lang = getLanguage();
+    changeLanguage(lang);
+  });
+  
+</script>
+<!-- Script สำหรับภาษา -->
+
 </html>
